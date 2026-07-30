@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio — Martina Candido</title>
+  <meta name="description" content="Martina Candido — Filmmaker & fotógrafa freelance especializada en eventos sociales. Bodas, XV, shows en vivo y noches en Buenos Aires." />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet"/>
+  <style>
+    /* ══════════════════════════════════════════════════
+       MOBILE FIRST — base = celular; @media (min-width) agranda.
+    ══════════════════════════════════════════════════ */
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #eeecec;
+      --ink: #111;
+      --muted: #666;
+      --pad: 16px;
+    }
+
+    html { -webkit-text-size-adjust: 100%; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      width: 100%;
+      overflow-x: hidden;
+    }
+
+    img { max-width: 100%; display: block; }
+
+    /* ── NAVBAR ── */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px var(--pad);
+      background-color: var(--bg);
+      border-bottom: 1px solid #e2e0e0;
+      width: 100%;
+    }
+    .logo {
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      white-space: nowrap;
+      text-decoration: none;
+      color: var(--ink);
+      z-index: 2;
+    }
+
+    /* Botón hamburguesa — solo mobile */
+    .nav-toggle {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      width: 34px;
+      height: 34px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 6px;
+      z-index: 2;
+    }
+    .nav-toggle span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--ink);
+      border-radius: 2px;
+      transition: transform 0.3s ease, opacity 0.2s ease;
+    }
+    .nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-toggle.open span:nth-child(2) { opacity: 0; }
+    .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .nav-links {
+      list-style: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      background: var(--bg);
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.32s ease;
+    }
+    .nav-links.open {
+      max-height: 260px;
+      border-bottom: 1px solid #e2e0e0;
+      box-shadow: 0 12px 20px rgba(0,0,0,0.06);
+    }
+    .nav-links li { width: 100%; }
+    .nav-links a {
+      display: block;
+      padding: 14px var(--pad);
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+      font-size: 16px;
+      transition: color 0.3s;
+    }
+    .nav-links a:hover { color: #888; }
+
+    /* ── HERO — grande, la chica protagonista ── */
+    .top { position: relative; width: 100%; height: 66vh; overflow: hidden; background: #111; }
+    .top-img { width: 100%; height: 100%; object-fit: cover; object-position: center 28%; display: block; }
+    .top::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 45%;
+      background: linear-gradient(180deg, rgba(0,0,0,0.45), rgba(0,0,0,0));
+      pointer-events: none;
+    }
+    .top-content { position: absolute; top: 16px; left: var(--pad); z-index: 2; }
+    .subtitulo {
+      color: #fff;
+      font-size: 16px;
+      font-weight: 400;
+      letter-spacing: 2px;
+      margin: 0;
+      text-shadow: 0 1px 6px rgba(0,0,0,0.35);
+    }
+    .titulo {
+      color: #fff;
+      font-size: 55px;
+      line-height: 0.95;
+      font-weight: 700;
+      margin: 0;
+      text-shadow: 0 1px 10px rgba(0,0,0,0.35);
+    }
+
+    /* ── BIO — texto e imagen lado a lado; stats en fila abajo ── */
+    .bio-section { display: flex; flex-direction: column; width: 100%; background: #fff; }
+    .bio-main { display: flex; align-items: stretch; }
+    .bio-text {
+      flex: 1 1 0;
+      min-width: 0;
+      padding: 24px 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 12px;
+    }
+    .bio-image { flex: 0 0 44%; overflow: hidden; background: #fff; }
+    .bio-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;        /* llena todo el alto de la bio */
+      object-position: center;
+      filter: grayscale(100%);
+    }
+    .bio-label { font-size: 30px; font-weight: 700; letter-spacing: -1px; line-height: 1; }
+    .bio-headline { font-size: 16px; font-weight: 500; line-height: 1.35; }
+    .bio-sub { font-size: 13px; font-weight: 300; color: var(--muted); line-height: 1.55; }
+    /* stats en una sola fila, uno al lado del otro */
+    .bio-stats { display: flex; gap: 10px; padding: 20px 16px 28px; }
+    .bio-stat { flex: 1 1 0; min-width: 0; }
+    .bio-stat b { display: block; font-size: 19px; font-weight: 700; line-height: 1; }
+    .bio-stat span { display: block; font-size: 9px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: #999; margin-top: 4px; }
+
+    /* ── CARRUSEL DE RESEÑAS ── */
+    .carousel-section { width: 100%; background: #fff; padding: 44px 0 40px; border-top: 1px solid #f0eeee; }
+    .carousel-section h2 { font-size: 24px; font-weight: 600; letter-spacing: -0.5px; padding: 0 var(--pad); margin-bottom: 26px; }
+    .carousel-viewport { overflow: hidden; width: 100%; }
+    .carousel-track { display: flex; transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1); will-change: transform; }
+    .carousel-slide { flex: 0 0 100%; min-width: 100%; padding: 0 var(--pad); }
+    .slide-review {
+      background: #f3f2f2;
+      border-radius: 4px;
+      padding: 30px 26px;
+      min-height: 300px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 16px;
+    }
+    /* comilla decorativa: en bloque, arriba del texto (ya no lo tapa) */
+    .review-quote { font-family: 'Playfair Display', serif; font-size: 18px; color: var(--ink); line-height: 1.55; font-style: italic; }
+    .review-quote::before {
+      content: '\201C';
+      display: block;
+      font-family: 'Playfair Display', serif;
+      font-size: 56px;
+      line-height: 0.3;
+      color: #cfcccc;
+      font-style: normal;
+      margin-bottom: 14px;
+    }
+    .review-author { font-size: 12px; font-weight: 600; color: #555; letter-spacing: 0.12em; text-transform: uppercase; }
+    .review-event { font-size: 11px; font-weight: 300; color: #aaa; margin-top: -10px; }
+
+    .carousel-controls { display: flex; align-items: center; justify-content: center; gap: 18px; padding: 22px var(--pad) 0; }
+    .carousel-btn { background: transparent; border: 1px solid #ddd; border-radius: 50%; width: 38px; height: 38px; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: border-color 0.2s; }
+    .carousel-btn:hover { border-color: #111; }
+    .carousel-btn:active { transform: scale(0.92); }
+    .carousel-btn svg { width: 15px; height: 15px; }
+    .carousel-btn svg polyline { stroke: #111; }
+    .carousel-dots { display: flex; gap: 8px; }
+    .dot { width: 7px; height: 7px; border-radius: 50%; background: #ccc; cursor: pointer; border: none; padding: 0; transition: background 0.3s, transform 0.3s; }
+    .dot.active { background: #111; transform: scale(1.35); }
+
+    /* ── SERVICIOS — texto sobre la foto; foto en su formato natural (sin recortar) ── */
+    .servicios-section { position: relative; width: 100%; background: #fff; }
+    .servicios-foto { width: 100%; }
+    .servicios-foto img { width: 100%; height: auto; display: block; filter: grayscale(100%); }
+    .servicios-overlay { position: absolute; inset: 0; display: flex; align-items: center; padding: 0 var(--pad); pointer-events: none; }
+    .servicios-overlay h3 {
+      margin: 0;
+      color: #111;
+      font-weight: 100;
+      letter-spacing: 1.5px;
+      line-height: 1.22;
+      /* escala con el ancho: 12 líneas siempre entran sobre la foto */
+      font-size: min(4vw, 54px);
+    }
+
+    /* ── TRABAJEMOS JUNTOS — foto izquierda, texto derecha (lado a lado) ── */
+    .trabajemos-section { display: flex; align-items: stretch; width: 100%; background: #fff; }
+    .trabajemos-image { flex: 0 0 56%; overflow: hidden; background: #fff; }
+    .trabajemos-image img { width: 100%; height: auto; object-fit: contain; filter: grayscale(100%); display: block; }
+    .trabajemos-text {
+      flex: 1 1 0;
+      min-width: 0;
+      padding: 20px 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .trabajemos-titulo { font-size: 22px; font-weight: 750; line-height: 1; letter-spacing: -0.5px; text-transform: uppercase; }
+    .trabajemos-cta { align-self: flex-start; background: #111; color: #fff; text-decoration: none; padding: 10px 20px; font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; transition: background 0.3s; }
+    .trabajemos-ubicacion { font-size: 12px; font-weight: 600; }
+
+    /* ── FOOTER — 3 columnas siempre (Navegación · Contactame · Redes) ── */
+    footer { width: 100%; background: #111; padding: 28px 16px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px 10px; }
+    .footer-titulo { font-size: 9px; font-weight: 700; color: #fff; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 10px; }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+    .footer-links a { text-decoration: none; color: #aaa; font-size: 10px; font-weight: 300; transition: color 0.3s; }
+    .footer-links a:hover { color: #fff; }
+    .footer-contacto { display: flex; flex-direction: column; gap: 8px; }
+    .footer-contacto a { color: #aaa; font-size: 10px; font-weight: 300; text-decoration: none; word-break: break-word; }
+    .footer-contacto a:hover { color: #fff; }
+    .footer-redes { display: flex; gap: 10px; margin-top: 4px; }
+    .footer-redes a { width: 28px; height: 28px; border-radius: 50%; border: 1px solid #444; display: flex; align-items: center; justify-content: center; transition: border-color 0.3s; }
+    .footer-redes a:hover { border-color: #fff; }
+    .footer-redes svg { width: 16px; height: 16px; fill: #aaa; transition: fill 0.3s; }
+    .footer-redes a:hover svg { fill: #fff; }
+
+    /* ── ANIMACIONES ── */
+
+/* Fade + slide up al entrar en viewport */
+.anim {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.anim.visible { opacity: 1; transform: translateY(0); }
+
+/* Delay escalonado para hijos */
+.anim-d1 { transition-delay: 0.1s; }
+.anim-d2 { transition-delay: 0.22s; }
+.anim-d3 { transition-delay: 0.34s; }
+
+/* Hero: zoom suave en la imagen de fondo */
+.top-img {
+  transition: transform 6s ease-out;
+  transform: scale(1.04);
+}
+.top-img.loaded { transform: scale(1); }
+
+/* Hover en el CTA */
+.trabajemos-cta {
+  position: relative;
+  overflow: hidden;
+}
+.trabajemos-cta::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,0.12);
+  transform: translateX(-100%);
+  transition: transform 0.35s ease;
+}
+.trabajemos-cta:hover::after { transform: translateX(0); }
+
+/* Hover suave en imágenes de bio y trabajemos */
+.bio-image img,
+.trabajemos-image img {
+  transition: transform 0.7s ease, filter 0.5s ease;
+}
+.bio-image:hover img { transform: scale(1.03); filter: grayscale(80%); }
+.trabajemos-image:hover img { transform: scale(1.03); filter: grayscale(80%); }
+
+/* Línea animada bajo los links del nav */
+.nav-links a {
+  position: relative;
+}
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: #111;
+  transition: width 0.3s ease;
+}
+.nav-links a:hover::after { width: 100%; }
+
+/* Stats: conteo animado visual (pulso al entrar) */
+.bio-stat b {
+  display: inline-block;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.bio-stat.visible b { animation: statPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both; }
+@keyframes statPop {
+  from { transform: scale(0.7); opacity: 0; }
+  to   { transform: scale(1);   opacity: 1; }
+}
+
+/* Servicios overlay: texto entra desde la izquierda */
+.servicios-overlay h3 {
+  transition: opacity 0.8s ease, transform 0.8s ease;
+  opacity: 0;
+  transform: translateX(-20px);
+}
+.servicios-overlay h3.visible { opacity: 1; transform: translateX(0); }
+
+@media (prefers-reduced-motion: reduce) {
+  .anim, .top-img, .bio-image img, .trabajemos-image img,
+  .servicios-overlay h3, .trabajemos-cta::after { transition: none !important; animation: none !important; }
+}
+
+    /* ══════════════ TABLET ≥ 600px ══════════════ */
+    @media (min-width: 600px) {
+      :root { --pad: 40px; }
+
+      /* nav horizontal, sin hamburguesa */
+      .nav-toggle { display: none; }
+      .nav-links {
+        position: static; flex-direction: row; align-items: center;
+        background: none; max-height: none; overflow: visible;
+        border: none; box-shadow: none;
+      }
+      .nav-links li { width: auto; margin-left: 40px; }
+      .nav-links a { padding: 0; font-size: 15px; color: #333; }
+      .logo { font-size: 20px; letter-spacing: 2px; }
+
+      .subtitulo { font-size: 20px; letter-spacing: 3px; }
+      .titulo { font-size: 56px; }
+
+      .bio-text { padding: 48px 40px; gap: 18px; }
+      .bio-label { font-size: 48px; }
+      .bio-headline { font-size: 22px; }
+      .bio-sub { font-size: 15px; }
+      .bio-stat b { font-size: 24px; }
+      .bio-stat span { font-size: 11px; }
+
+      .carousel-section h2 { font-size: 30px; }
+      .review-quote { font-size: 21px; }
+
+      .trabajemos-text { padding: 48px 40px; }
+      .trabajemos-titulo { font-size: 48px; }
+
+      /* hero un poco más alto en tablet */
+      /* desde tablet/pc: imagen completa, sin recortar */
+      .top { height: auto; }
+      .top-img { height: auto; }
+      .bio-stats { padding: 24px 40px 36px; gap: 30px; }
+
+      /* footer con tipografías cómodas */
+      footer { padding: 44px 40px; gap: 28px 30px; }
+      .footer-titulo { font-size: 11px; letter-spacing: 0.12em; margin-bottom: 12px; }
+      .footer-links a, .footer-contacto a { font-size: 13px; }
+      .footer-redes a { width: 34px; height: 34px; }
+    }
+
+    /* ══════════════ DESKTOP ≥ 900px ══════════════ */
+    @media (min-width: 900px) {
+      :root { --pad: 60px; }
+      .top { height: auto; }
+      .titulo { font-size: 80px; }
+      .subtitulo {font-size: 40px;}
+
+      .bio-text { padding: 80px 60px; gap: 24px; }
+      .bio-label { font-size: 64px; }
+      .bio-headline { font-size: 26px; }
+      .bio-image { flex: 0 0 46%; }
+      .bio-stats { padding: 28px 60px 44px; gap: 44px; }
+      .bio-stat { flex: 0 0 auto; }
+      .bio-stat b { font-size: 30px; }
+      .bio-stat span { font-size: 12px; }
+
+      .carousel-slide { padding: 0 22vw; }
+
+      /* desktop: lista a la izquierda, foto entera a la derecha */
+      /* trabajemos: texto repartido (arriba/medio/abajo) con margen del borde */
+      .trabajemos-section { min-height: 80vh; }
+      .trabajemos-text { padding: 70px 60px; justify-content: space-between; }
+      .trabajemos-titulo { font-size: 64px; }
+      .trabajemos-image { flex: 0 0 50%; }
+      .trabajemos-image img { object-fit: cover; }
+
+      .trabajemos-cta { padding: 20px 50px; font-size: 18px; }
+
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .carousel-track, .nav-links { transition: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <header>
+    <nav class="navbar">
+      <a class="logo" href="index.html">MARTINA CANDIDO</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="navLinks">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="pages/proyectos.html">Proyectos</a></li>
+        <li><a href="pages/contacto.html">Contacto</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="top">
+    <img class="top-img" src="assets/img/fondo.webp" alt="Martina Candido — portfolio" />
+    <div class="top-content">
+      <h3 class="subtitulo">FILMMAKING &amp; PHOTOGRAPHY</h3>
+      <h2 class="titulo">PORTFOLIO</h2>
+    </div>
+  </section>
+
+  <!-- BIO -->
+  <section class="bio-section">
+    <div class="bio-main">
+      <div class="bio-text">
+        <h1 class="bio-label">BIO</h1>
+        <p class="bio-headline">
+          Filmmaker &amp; fotógrafa freelance<br>
+          Especializada en eventos sociales.
+        </p>
+      </div>
+      <div class="bio-image">
+        <img src="assets/img/foto-bio.webp" alt="Retrato de Martina Candido" />
+      </div>
+    </div>
+    <div class="bio-stats">
+      <div class="bio-stat"><b>2022</b><span>Filmando desde</span></div>
+      <div class="bio-stat"><b>+500</b><span>Personas por evento</span></div>
+      <div class="bio-stat"><b>BS AS</b><span>Buenos Aires, Arg.</span></div>
+    </div>
+  </section>
+
+  <!-- CARRUSEL DE RESEÑAS -->
+  <section class="carousel-section">
+    <h2>Reseñas</h2>
+
+    <div class="carousel-viewport" id="carouselViewport">
+      <div class="carousel-track" id="carouselTrack">
+
+        <div class="carousel-slide">
+          <div class="slide-review">
+            <p class="review-quote">Posta gracias, documentaste toda la fiesta dándote cuenta de "la gente importante", los saludos como los soñé y lo mismo con el vals… pero sobre todo con la parte de la torta. ¡En serio que hermoso! ¡Gracias!</p>
+            <p class="review-author">Valentina A.</p>
+            <p class="review-event">XV · Mayo 2025</p>
+          </div>
+        </div>
+
+        <div class="carousel-slide">
+          <div class="slide-review">
+            <p class="review-quote">Lo vimos con los chicos y nos encantó mal, mil gracias. Hermoso como siempre.</p>
+            <p class="review-author">Benjamín D.</p>
+            <p class="review-event">Show Wayne · Septiembre 2025</p>
+          </div>
+        </div>
+
+        <div class="carousel-slide">
+          <div class="slide-review">
+            <p class="review-quote">Estoy muy agradecido con vos […] de corazón gracias Mar, no sería posible todo esto sin vos.</p>
+            <p class="review-author">Ezequiel P.</p>
+            <p class="review-event">Show DJ · Abril 2026</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="carousel-controls">
+      <button class="carousel-btn prev" id="prevBtn" aria-label="Reseña anterior">
+        <svg viewBox="0 0 24 24" fill="none"><polyline points="15 18 9 12 15 6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="carousel-dots" id="carouselDots"></div>
+      <button class="carousel-btn next" id="nextBtn" aria-label="Reseña siguiente">
+        <svg viewBox="0 0 24 24" fill="none"><polyline points="9 6 15 12 9 18" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+  </section>
+
+  <!-- SERVICIOS -->
+  <section class="servicios-section">
+    <div class="servicios-foto">
+      <img src="assets/img/fondo-bottom.webp" alt="Martina Candido" />
+    </div>
+    <div class="servicios-overlay">
+      <h3>COBERTURA<br>EVENTO<br>COMPLETO<br>BOOK<br>XV<br>BODAS<br>UPD<br>SHOWS EN<br>VIVO<br>BARES Y<br>BOLICHES<br>POLAS</h3>
+    </div>
+  </section>
+
+  <!-- TRABAJEMOS JUNTOS — texto izquierda, foto derecha -->
+  <section class="trabajemos-section">
+    <div class="trabajemos-text">
+      <h2 class="trabajemos-titulo">TRABAJEMOS<br>JUNTOS!</h2>
+      <a class="trabajemos-cta" href="pages/contacto.html">Contactame</a>
+      <p class="trabajemos-ubicacion">Buenos Aires, Argentina.</p>
+    </div>
+    <div class="trabajemos-image">
+      <img src="assets/img/studio (8).webp" alt="Retrato de estudio" />
+    </div>
+  </section>
+
+
+
+
+  <!-- FOOTER -->
+  <footer>
+    <div>
+      <p class="footer-titulo">Navegación</p>
+      <ul class="footer-links">
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="pages/proyectos.html">Proyectos</a></li>
+        <li><a href="pages/contacto.html">Contacto</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="footer-titulo">Contactame</p>
+      <div class="footer-contacto">
+        <a href="tel:+5491157053196">+54 9 11 5705-3196</a>
+        <a href="mailto:martinacandido.ph@gmail.com">martinacandido.ph@gmail.com</a>
+      </div>
+    </div>
+    <div>
+      <p class="footer-titulo">Redes</p>
+      <div class="footer-redes">
+        <a href="https://www.instagram.com/martinacandido.ph/" aria-label="Instagram" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.366.062 2.633.334 3.608 1.308.975.975 1.246 2.242 1.308 3.608.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.062 1.366-.334 2.633-1.308 3.608-.975.975-2.242 1.246-3.608 1.308-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.366-.062-2.633-.334-3.608-1.308-.975-.975-1.246-2.242-1.308-3.608C2.175 15.584 2.163 15.204 2.163 12s.012-3.584.07-4.85c.062-1.366.334-2.633 1.308-3.608.975-.975 2.242-1.246 3.608-1.308C8.416 2.175 8.796 2.163 12 2.163zm0-2.163C8.741 0 8.332.014 7.052.072 5.197.157 3.355.673 2.014 2.014.673 3.355.157 5.197.072 7.052.014 8.332 0 8.741 0 12c0 3.259.014 3.668.072 4.948.085 1.855.601 3.697 1.942 5.038 1.341 1.341 3.183 1.857 5.038 1.942C8.332 23.986 8.741 24 12 24s3.668-.014 4.948-.072c1.855-.085 3.697-.601 5.038-1.942 1.341-1.341 1.857-3.183 1.942-5.038.058-1.28.072-1.689.072-4.948s-.014-3.668-.072-4.948c-.085-1.855-.601-3.697-1.942-5.038C20.645.673 18.803.157 16.948.072 15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zm0 10.162a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+        </a>
+        <a href="https://www.tiktok.com/@martinacandido.ph" aria-label="TikTok" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+  // ── Menú hamburguesa ──
+  (function () {
+    const toggle = document.getElementById('navToggle');
+    const links = document.getElementById('navLinks');
+    toggle.addEventListener('click', () => {
+      const open = links.classList.toggle('open');
+      toggle.classList.toggle('open', open);
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      toggle.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
+    });
+    links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      links.classList.remove('open');
+      toggle.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+    }));
+  })();
+
+  // ── Hero: zoom suave al cargar ──
+  (function () {
+    const img = document.querySelector('.top-img');
+    if (!img) return;
+    if (img.complete) img.classList.add('loaded');
+    else img.addEventListener('load', () => img.classList.add('loaded'));
+  })();
+
+  // ── IntersectionObserver: anima elementos al entrar en pantalla ──
+  (function () {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        e.target.classList.add('visible');
+        io.unobserve(e.target);
+      });
+    }, { threshold: 0.12 });
+  
+
+    // Agrega clase .anim a los elementos que queremos animar
+    const selectores = [
+      '.bio-text', '.bio-stats',
+      '.bio-stat',
+      '.carousel-section h2', '.slide-review',
+      '.servicios-overlay h3',
+      '.trabajemos-text', '.trabajemos-image',
+      'footer > div'
+    ];
+    selectores.forEach(sel => {
+      document.querySelectorAll(sel).forEach((el, i) => {
+        if (!el.classList.contains('anim')) el.classList.add('anim');
+        // delay escalonado para hijos del mismo padre
+        if (i === 1) el.classList.add('anim-d1');
+        if (i === 2) el.classList.add('anim-d2');
+        io.observe(el);
+      });
+    });
+
+    // Servicios: el h3 tiene su propia animación lateral
+    document.querySelectorAll('.servicios-overlay h3').forEach(el => {
+      el.classList.remove('anim'); // usa su propia clase
+      io.observe(el);
+    });
+  })();
+
+  // ── Carrusel de reseñas ──
+  (function () {
+    const track = document.getElementById('carouselTrack');
+    const viewport = document.getElementById('carouselViewport');
+    const slides = Array.from(track.children);
+    const dotsBox = document.getElementById('carouselDots');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    let index = 0, timer = null;
+    const AUTO_MS = 5500;
+
+    slides.forEach((_, i) => {
+      const b = document.createElement('button');
+      b.className = 'dot' + (i === 0 ? ' active' : '');
+      b.setAttribute('aria-label', 'Ir a la reseña ' + (i + 1));
+      b.addEventListener('click', () => { go(i); restart(); });
+      dotsBox.appendChild(b);
+    });
+    const dots = Array.from(dotsBox.children);
+
+    function go(i) {
+      index = (i + slides.length) % slides.length;
+      track.style.transform = 'translateX(' + (-index * 100) + '%)';
+      dots.forEach((d, n) => d.classList.toggle('active', n === index));
+    }
+    prevBtn.addEventListener('click', () => { go(index - 1); restart(); });
+    nextBtn.addEventListener('click', () => { go(index + 1); restart(); });
+    function start() { timer = setInterval(() => go(index + 1), AUTO_MS); }
+    function restart() { clearInterval(timer); start(); }
+    viewport.addEventListener('mouseenter', () => clearInterval(timer));
+    viewport.addEventListener('mouseleave', restart);
+
+    let startX = 0, dragging = false;
+    viewport.addEventListener('touchstart', (e) => { startX = e.touches[0].clientX; dragging = true; clearInterval(timer); }, { passive: true });
+    viewport.addEventListener('touchend', (e) => {
+      if (!dragging) return;
+      dragging = false;
+      const dx = e.changedTouches[0].clientX - startX;
+      if (Math.abs(dx) > 40) go(index + (dx < 0 ? 1 : -1));
+      restart();
+    });
+
+   go(0); start();
+    })();
+  </script>
+</body>
+</html>

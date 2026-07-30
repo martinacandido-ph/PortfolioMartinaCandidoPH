@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Highlights XV — Martina Candido</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet"/>
+  
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html, body {
+      font-family: 'DM Sans', sans-serif;
+      background: #fff;
+      width: 100%;
+      overflow-x: hidden;
+    }
+
+    /* ── NAVBAR ── */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 50px;
+      background-color: #fff;
+      border-bottom: 1px solid #eee;
+      width: 100%;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+      letter-spacing: 2px;
+      text-decoration: none;
+      color: #111;
+    }
+
+    .nav-links { display: flex; list-style: none; }
+    .nav-links li { margin-left: 80px; }
+    .nav-links a {
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+      font-size: 16px;
+      transition: 0.3s;
+    }
+    .nav-links a:hover { color: #888; }
+
+    /* ── HERO TÍTULO ── */
+    .proyecto-hero {
+      width: 100%;
+      padding: 80px 60px 60px;
+      background: #fff;
+    }
+
+    .proyecto-hero h1 {
+      font-size: 72px;
+      font-weight: 700;
+      color: #111;
+      letter-spacing: -2px;
+      line-height: 1;
+      text-transform: uppercase;
+    }
+
+    .proyecto-hero p {
+      font-size: 14px;
+      font-weight: 300;
+      color: #aaa;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-top: 16px;
+    }
+
+    /* ── IMAGEN FIJA DE FONDO ── */
+    .fondo-fijo {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      z-index: 0;
+    }
+
+    .fondo-fijo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* ── CONTENIDO DESLIZANTE ── */
+    .contenido {
+      position: relative;
+      z-index: 10;
+    }
+
+    /* ── GALERÍA ASIMÉTRICA ── */
+    .galeria {
+      width: 100%;
+      background: #fff;
+      padding: 10px 60px 60px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    /* Fila 1: 2 fotos horizontales */
+    .fila-1 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .fila-1 .foto {
+      aspect-ratio: 4 / 3;
+      overflow: hidden;
+    }
+
+    /* Fila 2: 3 fotos verticales en B&N */
+    .fila-2 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+
+    .fila-2 .foto {
+      aspect-ratio: 3 / 4;
+      overflow: hidden;
+    }
+
+    .fila-2 .foto img {
+      filter: grayscale(100%);
+    }
+
+    .foto img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s ease;
+    }
+
+    .foto:hover img { transform: scale(1.03); }
+
+    /* ── VENTANA TRANSPARENTE ── */
+    .ventana {
+      height: 100vh;
+      background: transparent;
+      position: relative;
+      z-index: 5;
+    }
+
+    /* ── BLOQUE DE VIDEO Y GRILLAS ── */
+    .video-section {
+      width: 100%;
+      background: #fff;
+      padding: 100px 60px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .video-section-titulo {
+      font-size: 13px;
+      font-weight: 500;
+      color: #aaa;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      align-self: flex-start;
+    }
+
+    .video-wrapper {
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%; /* Relación de aspecto 16:9 */
+      height: 0;
+      overflow: hidden;
+      background: #000;
+    }
+
+    .video-wrapper iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      z-index: 2;
+    }
+
+    .grilla-fotos {
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+
+    .grilla-fotos .item-foto {
+      aspect-ratio: 4 / 3;
+      overflow: hidden;
+    }
+
+    .grilla-fotos img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s ease;
+    }
+
+    .grilla-fotos .item-foto:hover img {
+      transform: scale(1.03);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      width: 100%;
+      background: #111;
+      padding: 48px 60px;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 40px;
+    }
+
+    .footer-titulo {
+      font-size: 13px;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+    .footer-links a { text-decoration: none; color: #aaa; font-size: 14px; font-weight: 300; transition: color 0.3s; }
+    .footer-links a:hover { color: #fff; }
+    .footer-contacto { display: flex; flex-direction: column; gap: 8px; }
+    .footer-contacto p { color: #aaa; font-size: 14px; font-weight: 300; }
+    .footer-redes { display: flex; gap: 12px; margin-top: 4px; }
+    .footer-redes a { width: 34px; height: 34px; border-radius: 50%; border: 1px solid #333; display: flex; align-items: center; justify-content: center; transition: border-color 0.3s; }
+    .footer-redes a:hover { border-color: #fff; }
+    .footer-redes svg { width: 16px; height: 16px; fill: #aaa; transition: fill 0.3s; }
+    .footer-redes a:hover svg { fill: #fff; }
+
+    /* ── ANIMACIONES ── */
+    .fade-in { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── RESPONSIVE MOBILE ── */
+    .nav-toggle { display: none; flex-direction: column; justify-content: center; gap: 5px; width: 34px; height: 34px; background: none; border: none; cursor: pointer; padding: 6px; z-index: 101; }
+    .nav-toggle span { display: block; width: 22px; height: 2px; background: #111; border-radius: 2px; transition: transform .3s ease, opacity .2s ease; }
+    .nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-toggle.open span:nth-child(2) { opacity: 0; }
+    .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    @media (max-width: 768px) {
+      .navbar { padding: 12px 16px; position: sticky; top: 0; z-index: 100; }
+      .logo { font-size: 13px; letter-spacing: 1px; white-space: nowrap; }
+      .nav-toggle { display: flex; }
+      .nav-links { position: absolute; top: 100%; left: 0; right: 0; flex-direction: column; align-items: flex-start; background: #fff; max-height: 0; overflow: hidden; margin: 0; transition: max-height .32s ease; }
+      .nav-links.open { max-height: 260px; border-bottom: 1px solid #e2e0e0; box-shadow: 0 12px 20px rgba(0,0,0,.06); }
+      .nav-links li { margin: 0 !important; width: 100%; }
+      .nav-links a { display: block; padding: 14px 16px; font-size: 15px !important; }
+
+      .proyecto-hero { padding: 60px 24px 40px; }
+      .proyecto-hero h1 { font-size: 40px; }
+      .galeria { padding: 10px 24px 40px; }
+      .fila-1 { grid-template-columns: 1fr; }
+      .fila-2 { grid-template-columns: repeat(3, 1fr); gap: 6px; }
+      .video-section { padding: 60px 24px; }
+
+      .grilla-fotos { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+
+      footer {
+        padding: 24px 16px;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 12px;
+      }
+      .footer-titulo { font-size: 9px; letter-spacing: 0.08em; margin-bottom: 10px; }
+      .footer-links a { font-size: 10px; }
+      .footer-contacto p { font-size: 9px; }
+      .footer-redes a { width: 26px; height: 26px; }
+      .footer-redes svg { width: 12px; height: 12px; }
+      .footer-redes { gap: 8px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- IMAGEN FIJA -->
+  <div class="fondo-fijo">
+    <img src="../assets/img/pilar.webp" alt="Fondo" />
+  </div>
+
+  <!-- CONTENIDO DESLIZANTE -->
+  <div class="contenido">
+
+    <!-- NAVBAR -->
+    <header>
+      <nav class="navbar">
+        <a class="logo" href="../index.html">MARTINA CANDIDO</a>
+        <button class="nav-toggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="navLinks"><span></span><span></span><span></span></button>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="../index.html">Inicio</a></li>
+          <li><a href="proyectos.html">Proyectos</a></li>
+          <li><a href="contacto.html">Contacto</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- HERO TÍTULO -->
+    <section class="proyecto-hero">
+      <h1>XV Años</h1>
+      <p>Highlights · 2022 — 2026</p>
+    </section>
+
+    <!-- SECTION 1: GALERÍA ASIMÉTRICA -->
+    <section class="galeria">
+      <div class="fila-1 fade-in">
+        <div class="foto"><img src="../assets/img/pilar (1).webp" alt="Foto 1" /></div>
+        <div class="foto"><img src="../assets/img/pilar (2).webp" alt="Foto 2" /></div>
+      </div>
+
+      <div class="fila-2 fade-in">
+        <div class="foto"><img src="../assets/img/pilar (4).webp" alt="Foto 3" /></div>
+        <div class="foto"><img src="../assets/img/pilar (5).webp" alt="Foto 4" /></div>
+        <div class="foto"><img src="../assets/img/pilar (3).webp" alt="Foto 5" /></div>
+      </div>
+    </section>
+
+    <!-- VENTANA TRANSPARENTE -->
+    <div class="ventana"></div>
+
+    <!-- HIGHLIGHT 01 -->
+    <section class="video-section">
+      <span class="video-section-titulo fade-in">Highlight 01</span>
+
+      <div class="video-wrapper fade-in">
+        <iframe 
+          src="https://www.youtube-nocookie.com/embed/Y3v4chY-lBE" 
+          title="YouTube video player" 
+          frameborder="0" 
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+          referrerpolicy="strict-origin-when-cross-origin" 
+          allowfullscreen>
+        </iframe>
+      </div>
+
+      <div class="grilla-fotos fade-in">
+        <div class="item-foto"><img src="../assets/img/jose07.webp" alt="Foto Jose 1" /></div>
+        <div class="item-foto"><img src="../assets/img/jose02.webp" alt="Foto Jose 2" /></div>
+        <div class="item-foto"><img src="../assets/img/jose03.webp" alt="Foto Jose 3" /></div>
+        <div class="item-foto"><img src="../assets/img/jose06.webp" alt="Foto Jose 4" /></div>
+        <div class="item-foto"><img src="../assets/img/jose05.webp" alt="Foto Jose 5" /></div>
+        <div class="item-foto"><img src="../assets/img/jose08.webp" alt="Foto Jose 6" /></div>
+      </div>
+    </section>
+
+    <!-- HIGHLIGHT 02 -->
+    <section class="video-section">
+      <span class="video-section-titulo fade-in">Highlight 02</span>
+
+      <div class="video-wrapper fade-in">
+        <iframe 
+          src="https://www.youtube-nocookie.com/embed/pgcVf_dZu1w" 
+          title="YouTube video player" 
+          frameborder="0" 
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+          referrerpolicy="strict-origin-when-cross-origin" 
+          allowfullscreen>
+        </iframe>
+      </div>
+
+      <div class="grilla-fotos fade-in">
+        <div class="item-foto"><img src="../assets/img/celene.webp" alt="Foto Celene 1" /></div>
+        <div class="item-foto"><img src="../assets/img/celene02.webp" alt="Foto Celene 2" /></div>
+        <div class="item-foto"><img src="../assets/img/celene01.webp" alt="Foto Celene 3" /></div>
+        <div class="item-foto"><img src="../assets/img/celene07.webp" alt="Foto Celene 4" /></div>
+        <div class="item-foto"><img src="../assets/img/celene04.webp" alt="Foto Celene 5" /></div>
+        <div class="item-foto"><img src="../assets/img/celene05.webp" alt="Foto Celene 6" /></div>
+      </div>
+    </section>
+
+    <!-- HIGHLIGHT 03 -->
+    <section class="video-section">
+      <span class="video-section-titulo fade-in">Highlight 03</span>
+
+      <div class="video-wrapper fade-in">
+        <iframe 
+          src="https://www.youtube-nocookie.com/embed/2qGR6HDW_x0" 
+          title="YouTube video player" 
+          frameborder="0" 
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+          referrerpolicy="strict-origin-when-cross-origin" 
+          allowfullscreen>
+        </iframe>
+      </div>
+
+      <div class="grilla-fotos fade-in">
+        <div class="item-foto"><img src="../assets/img/val03.webp" alt="Foto Val 1" /></div>
+        <div class="item-foto"><img src="../assets/img/Val.webp" alt="Foto Val 2" /></div>
+        <div class="item-foto"><img src="../assets/img/val02.webp" alt="Foto Val 3" /></div>
+        <div class="item-foto"><img src="../assets/img/val04.webp" alt="Foto Val 4" /></div>
+        <div class="item-foto"><img src="../assets/img/val01.webp" alt="Foto Val 5" /></div>
+        <div class="item-foto"><img src="../assets/img/val05.webp" alt="Foto Val 6" /></div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <div>
+        <p class="footer-titulo">Navegación</p>
+        <ul class="footer-links">
+          <li><a href="../index.html">Inicio</a></li>
+          <li><a href="proyectos.html">Proyectos</a></li>
+          <li><a href="contacto.html">Contacto</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer-titulo">Contactame</p>
+        <div class="footer-contacto">
+          <p>☏ +54 9 11 5705-3196</p>
+          <p>@ martinacandido.ph@gmail.com</p>
+        </div>
+      </div>
+      <div>
+        <p class="footer-titulo">Redes Sociales</p>
+        <div class="footer-redes">
+          <a href="https://www.instagram.com/martinacandido.ph/" aria-label="Instagram" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.366.062 2.633.334 3.608 1.308.975.975 1.246 2.242 1.308 3.608.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.062 1.366-.334 2.633-1.308 3.608-.975.975-2.242 1.246-3.608 1.308-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.366-.062-2.633-.334-3.608-1.308-.975-.975-1.246-2.242-1.308-3.608C2.175 15.584 2.163 15.204 2.163 12s.012-3.584.07-4.85c.062-1.366.334-2.633 1.308-3.608.975-.975 2.242-1.246 3.608-1.308C8.416 2.175 8.796 2.163 12 2.163zm0-2.163C8.741 0 8.332.014 7.052.072 5.197.157 3.355.673 2.014 2.014.673 3.355.157 5.197.072 7.052.014 8.332 0 8.741 0 12c0 3.259.014 3.668.072 4.948.085 1.855.601 3.697 1.942 5.038 1.341 1.341 3.183 1.857 5.038 1.942C8.332 23.986 8.741 24 12 24s3.668-.014 4.948-.072c1.855-.085 3.697-.601 5.038-1.942 1.341-1.341 1.857-3.183 1.942-5.038.058-1.28.072-1.689.072-4.948s-.014-3.668-.072-4.948c-.085-1.855-.601-3.697-1.942-5.038C20.645.673 18.803.157 16.948.072 15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zm0 10.162a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+          </a>
+          <a href="https://www.tiktok.com/@martinacandido.ph" aria-label="TikTok" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+          </a>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+
+  <script>
+    // Intersection Observer para las animaciones Fade In
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+    
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    // Menú hamburguesa (Mobile)
+    (function () {
+      var t = document.querySelector('.nav-toggle'), l = document.getElementById('navLinks');
+      if (!t || !l) return;
+      t.addEventListener('click', function () {
+        var o = l.classList.toggle('open');
+        t.classList.toggle('open', o);
+        t.setAttribute('aria-expanded', o ? 'true' : 'false');
+      });
+      l.querySelectorAll('a').forEach(function (a) {
+        a.addEventListener('click', function () { l.classList.remove('open'); t.classList.remove('open'); });
+      });
+    })();
+  </script>
+</body>
+</html>
