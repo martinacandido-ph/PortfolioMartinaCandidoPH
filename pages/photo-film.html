@@ -3,20 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Wedding — Martina Candido</title>
+  <title>Proyectos — Martina Candido</title>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,700&display=swap" rel="stylesheet"/>
-
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
-    :root { 
-      --pad: 24px; 
+    :root {
+      --pad: 24px;
     }
 
-    html, body {
+    body {
       font-family: 'Montserrat', sans-serif;
-      background: #fff;
-      color: #000;
+      background: #eeecec;
       width: 100%;
       overflow-x: hidden;
     }
@@ -91,146 +89,81 @@
     }
     .nav-links a:hover { color: #9c9c9c; }
 
-    /* ── HERO ── */
-    .proyecto-hero {
-      padding: 60px var(--pad) 30px;
-      position: relative;
-      z-index: 2;
-      background: #fff;
-    }
-    .proyecto-hero .eyebrow {
-      font-size: 12px;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: #888;
-      font-weight: 500;
-      margin-bottom: 12px;
-    }
-    .proyecto-hero h1 {
-      font-size: clamp(36px, 8vw, 68px);
-      font-weight: 800;
-      color: #111;
-      letter-spacing: -1px;
-      line-height: 1.05;
-      text-transform: uppercase;
-    }
-
-    /* ── GALERIAS ── */
-    .galeria-wrap {
-      position: relative;
-      z-index: 2;
-      background: #fff;
-      padding: 20px var(--pad) 0;
-    }
-
-    .fila-dos {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-    }
-    .fila-tres {
+    /* ══════════════════════
+       GRILLA DE PROYECTOS
+    ══════════════════════ */
+    .proyectos-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
-      margin-top: 14px;
-      margin-bottom: 300px;
+      width: 100%;
     }
 
-    .fila-dos figure, .fila-tres figure {
+    .proyecto-item {
+      position: relative;
       overflow: hidden;
-      background: #eee;
+      aspect-ratio: 1 / 1;
+      display: block;
+      text-decoration: none;
     }
-    .fila-dos img {
+
+    .proyecto-item img {
       width: 100%;
       height: 100%;
-      aspect-ratio: 3 / 2;
       object-fit: cover;
       display: block;
-      transition: transform 0.6s ease;
-    }
-    .fila-tres img {
-      width: 100%;
-      height: 100%;
-      aspect-ratio: 4 / 5;
-      object-fit: cover;
-      display: block;
-      transition: transform 0.6s ease;
-    }
-    .fila-dos img:hover, .fila-tres img:hover { transform: scale(1.04); }
-
-    /* ── FONDO FIJO (ventana) ── */
-    .fondo-fijo-anchor {
-      position: relative;
-      height: 90vh;
-      z-index: 1;
-    }
-    .fondo-fijo-anchor .fondo-fijo-img {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100vh;
-      object-fit: cover;
-      z-index: -1;
+      transition: transform 0.5s ease;
     }
 
-    /* Post fondo */
-    .post-fondo {
-      position: relative;
-      z-index: 2;
-      background: #fff;
-      padding: 60px 0;
-    }
-    .px-page { padding: 0 var(--pad); }
-
-    /* ── VIDEO ── */
-    .video-wrap {
-      position: relative;
-      width: 100%;
-      padding-bottom: 56.25%; /* 16:9 */
-      height: 0;
-      overflow: hidden;
-      background: #000;
-    }
-
-    .video-wrap iframe {
+    .proyecto-overlay {
       position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      border: 0;
-      z-index: 2;
+      inset: 0;
+      background: rgba(0, 0, 0, 0);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 28px;
+      transition: background 0.4s ease;
     }
 
-    /* ── GRILLA DE 6 FOTOS ── */
-    .fila-seis {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-    }
-    .fila-seis figure { overflow: hidden; background: #eee; }
-    .fila-seis img {
-      width: 100%;
-      height: 100%;
-      aspect-ratio: 3 / 2;
-      object-fit: cover;
-      display: block;
-      transition: transform 0.6s ease;
-    }
-    .fila-seis img:hover { transform: scale(1.04); }
-
-    /* ── FOTO FULL WIDTH ── */
-    .foto-full { width: 100%; overflow: hidden; }
-    .foto-full img {
-      width: 100%;
-      height: auto;
-      aspect-ratio: 21 / 9;
-      object-fit: cover;
-      display: block;
+    .proyecto-titulo {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+      pointer-events: none;
     }
 
-    .post-fondo .bloque + .bloque { margin-top: 32px; }
+    .proyecto-subtitulo {
+      font-size: 12px;
+      font-weight: 400;
+      color: #cccccc;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-top: 6px;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.4s ease 0.05s, transform 0.4s ease 0.05s;
+      pointer-events: none;
+    }
+
+    .proyecto-item:hover .proyecto-overlay {
+      background: rgba(0, 0, 0, 0.6);
+    }
+
+    .proyecto-item:hover img {
+      transform: scale(1.04);
+    }
+
+    .proyecto-item:hover .proyecto-titulo,
+    .proyecto-item:hover .proyecto-subtitulo {
+      opacity: 1;
+      transform: translateY(0);
+    }
 
     /* ══════════════════════
        FOOTER (Idéntico al Inicio)
@@ -242,8 +175,6 @@
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
       gap: 16px 10px;
-      position: relative;
-      z-index: 2;
     }
 
     .footer-titulo {
@@ -284,15 +215,23 @@
     .footer-redes svg { width: 14px; height: 14px; fill: #888; transition: fill 0.3s; }
     .footer-redes a:hover svg { fill: #f9f9f9; }
 
-    /* ── ANIMACIONES ── */
-    .fade-in { 
-      opacity: 0; 
-      transform: translateY(24px); 
-      transition: opacity 0.7s ease, transform 0.7s ease; 
+    /* ══════════════════════
+       ANIMACIONES
+    ══════════════════════ */
+    .anim {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
     }
-    .fade-in.visible { 
-      opacity: 1; 
-      transform: translateY(0); 
+    .anim.visible { opacity: 1; transform: translateY(0); }
+    .anim-d1 { transition-delay: 0.1s; }
+    .anim-d2 { transition-delay: 0.2s; }
+    .anim-d3 { transition-delay: 0.3s; }
+    .anim-d4 { transition-delay: 0.4s; }
+    .anim-d5 { transition-delay: 0.5s; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .anim { transition: none !important; }
     }
 
     /* ══════════════════════
@@ -323,11 +262,14 @@
       .footer-redes a { width: 32px; height: 32px; }
     }
 
-    @media (max-width: 768px) {
-      .fila-dos { grid-template-columns: 1fr; }
-      .fila-tres { grid-template-columns: repeat(3, 1fr); gap: 6px; margin-bottom: 90px; }
-      .fondo-fijo-anchor { height: 60vh; }
-      .fila-seis { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+    @media (max-width: 768px), (hover: none) {
+      .proyectos-grid { grid-template-columns: repeat(2, 1fr); }
+      .proyecto-overlay { background: linear-gradient(to top, rgba(0,0,0,0.72), rgba(0,0,0,0) 60%); }
+      .proyecto-titulo, .proyecto-subtitulo { opacity: 1; transform: none; }
+    }
+
+    @media (max-width: 480px) {
+      .proyectos-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -349,72 +291,58 @@
     </nav>
   </header>
 
-  <!-- HERO TÍTULO -->
-  <section class="proyecto-hero">
-    <p class="eyebrow">Bodas · 2025 — 2026</p>
-    <h1>WEDDING</h1>
-  </section>
+  <!-- GRILLA -->
+  <main class="proyectos-grid">
 
-  <!-- Grilla de 2 fotos horizontales -->
-  <section class="galeria-wrap">
-    <div class="fila-dos fade-in">
-      <figure><img src="../assets/img/wed (12).webp" alt="Foto horizontal 1"></figure>
-      <figure><img src="../assets/img/wed (13).webp" alt="Foto horizontal 2"></figure>
-    </div>
-
-    <!-- Grilla de 3 fotos verticales -->
-    <div class="fila-tres fade-in">
-      <figure><img src="../assets/img/wed (15).webp" alt="Foto vertical 1"></figure>
-      <figure><img src="../assets/img/wed (16).webp" alt="Foto vertical 2"></figure>
-      <figure><img src="../assets/img/wed (14).webp" alt="Foto vertical 3"></figure>
-    </div>
-  </section>
-
-  <!-- Ventana con foto de fondo fija -->
-  <section class="fondo-fijo-anchor">
-    <img class="fondo-fijo-img" src="../assets/img/wed (11).webp" alt="Foto de fondo fija">
-  </section>
-
-  <!-- Contenido que vuelve a pasar por encima del fondo -->
-  <section class="post-fondo fade-in">
-
-    <!-- VIDEO DE YOUTUBE -->
-    <div class="bloque px-page">
-      <div class="video-wrap" id="video-boda">
-        <iframe 
-          src="https://www.youtube.com/embed/4Y3bq9Ps8lo" 
-          title="Highlight Boda Martina Candido" 
-          frameborder="0" 
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-          referrerpolicy="strict-origin-when-cross-origin" 
-          allowfullscreen>
-        </iframe>
+    <a class="proyecto-item" href="quieren-rock.html">
+      <img src="../assets/img/rockFondo.webp" alt="Quieren Rock!" />
+      <div class="proyecto-overlay">
+        <span class="proyecto-titulo">"Quieren Rock!"</span>
+        <span class="proyecto-subtitulo">2024 · 2026</span>
       </div>
-    </div>
+    </a>
 
-    <div class="bloque px-page fila-seis">
-      <figure><img src="../assets/img/casamiento04.webp" alt="Foto horizontal 1"></figure>
-      <figure><img src="../assets/img/casamiento01.webp" alt="Foto horizontal 2"></figure>
-      <figure><img src="../assets/img/casamiento05.webp" alt="Foto horizontal 3"></figure>
-      <figure><img src="../assets/img/casamiento02.webp" alt="Foto horizontal 4"></figure>
-      <figure><img src="../assets/img/casamiento03.webp" alt="Foto horizontal 5"></figure>
-      <figure><img src="../assets/img/casamiento.webp" alt="Foto horizontal 6"></figure>
-    </div>
+    <a class="proyecto-item" href="xv.html">
+      <img src="../assets/img/xvFondo.webp" alt="XV Años" />
+      <div class="proyecto-overlay">
+        <span class="proyecto-titulo">XV Años</span>
+        <span class="proyecto-subtitulo">2022 · 2026</span>
+      </div>
+    </a>
 
-    <div class="bloque">
-      <figure class="foto-full"><img src="../assets/img/wed (2).webp" alt="Foto horizontal ancho completo"></figure>
-    </div>
+    <a class="proyecto-item" href="studio.html">
+      <img src="../assets/img/studioFondo.webp" alt="Studio" />
+      <div class="proyecto-overlay">
+        <span class="proyecto-titulo">Studio</span>
+        <span class="proyecto-subtitulo">2024 · 2026</span>
+      </div>
+    </a>
 
-    <div class="bloque px-page fila-seis">
-      <figure><img src="../assets/img/wed (9).webp" alt="Foto horizontal 7"></figure>
-      <figure><img src="../assets/img/wed (3).webp" alt="Foto horizontal 8"></figure>
-      <figure><img src="../assets/img/wed (8).webp" alt="Foto horizontal 9"></figure>
-      <figure><img src="../assets/img/wed (5).webp" alt="Foto horizontal 10"></figure>
-      <figure><img src="../assets/img/wed (6).webp" alt="Foto horizontal 11"></figure>
-      <figure><img src="../assets/img/wed (7).webp" alt="Foto horizontal 12"></figure>
-    </div>
+    <a class="proyecto-item" href="wedding.html">
+      <img src="../assets/img/wed.webp" alt="Wedding" />
+      <div class="proyecto-overlay">
+        <span class="proyecto-titulo">Wedding</span>
+        <span class="proyecto-subtitulo">2025 · 2026</span>
+      </div>
+    </a>
 
-  </section>
+    <a class="proyecto-item" href="boliches.html">
+      <img src="../assets/img/hitFondo.webp" alt="Noches en Buenos Aires" />
+      <div class="proyecto-overlay">
+        <span class="proyecto-titulo">"Noches en Buenos Aires"</span>
+        <span class="proyecto-subtitulo">2025 · 2026</span>
+      </div>
+    </a>
+
+    <a class="proyecto-item" href="ecommerce.html">
+      <img src="../assets/img/ecommerceFondo.webp" alt="eCommerce" />
+      <div class="proyecto-overlay">
+        <span class="proyecto-titulo">eCommerce</span>
+        <span class="proyecto-subtitulo">2023 · 2026</span>
+      </div>
+    </a>
+
+  </main>
 
   <!-- FOOTER -->
   <footer>
@@ -427,6 +355,7 @@
         <li><a href="contacto.html">Contacto</a></li>
       </ul>
     </div>
+
     <div>
       <p class="footer-titulo">Contactame</p>
       <div class="footer-contacto">
@@ -434,6 +363,7 @@
         <p>martinacandido.ph@gmail.com</p>
       </div>
     </div>
+
     <div>
       <p class="footer-titulo">Redes</p>
       <div class="footer-redes">
@@ -448,16 +378,7 @@
   </footer>
 
   <script>
-    // Fade In al hacer scroll
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) entry.target.classList.add('visible');
-      });
-    }, { threshold: 0.15 });
-    
-    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-
-    // Menú hamburguesa (Mobile)
+    // Hamburguesa Mobile
     (function () {
       const toggle = document.getElementById('navToggle');
       const links = document.getElementById('navLinks');
@@ -472,6 +393,31 @@
         toggle.classList.remove('open');
         toggle.setAttribute('aria-expanded', 'false');
       }));
+    })();
+
+    // Animaciones al hacer scroll
+    (function () {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (!e.isIntersecting) return;
+          e.target.classList.add('visible');
+          io.unobserve(e.target);
+        });
+      }, { threshold: 0.08 });
+
+      document.querySelectorAll('.proyecto-item').forEach((el, i) => {
+        el.classList.add('anim');
+        const delays = ['', 'anim-d1', 'anim-d2', 'anim-d3', 'anim-d4', 'anim-d5'];
+        if (delays[i % 3]) el.classList.add(delays[i % 3]);
+        io.observe(el);
+      });
+
+      document.querySelectorAll('footer > div').forEach((el, i) => {
+        el.classList.add('anim');
+        if (i === 1) el.classList.add('anim-d1');
+        if (i === 2) el.classList.add('anim-d2');
+        io.observe(el);
+      });
     })();
   </script>
 

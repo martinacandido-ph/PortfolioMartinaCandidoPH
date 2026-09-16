@@ -1,592 +1,724 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contacto - Martina Candido</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <title>Contacto — Martina Candido</title>
+  <meta name="description" content="Contactate con Martina Candido para coberturas audiovisuales, fotografía, branding o desarrollo web." />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,700&display=swap" rel="stylesheet"/>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
- 
-    body {
-      font-family: 'DM Sans', sans-serif;
-      background: #eeecec;
-      width: 100%;
+
+    :root {
+      --pad: 24px;
+      --bg: #f9f9f9;
+      --title-color: #2b2b2b;
+      --text-color: #000000;
+      --accent: #b55942;
     }
- 
-    /* ── NAVBAR ── */
+
+    html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: var(--bg);
+      color: var(--text-color);
+      width: 100%;
+      overflow-x: hidden;
+    }
+
+    /* ══════════════════════
+       NAVBAR
+    ══════════════════════ */
     .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 200;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 20px 50px;
-      background-color: #eeecec;
-      border-bottom: 1px solid #eee;
+      padding: 16px var(--pad);
+      background: #2b2b2b;
       width: 100%;
     }
- 
-    .logo {
-      font-size: 24px;
-      font-weight: bold;
-      letter-spacing: 2px;
-      text-decoration: none;
-      color: #111;
-    }
- 
-    .nav-links {
+
+    .nav-left {
       display: flex;
-      list-style: none;
+      align-items: center;
+      gap: 16px;
     }
- 
-    .nav-links li { margin-left: 80px; }
- 
-    .nav-links a {
+
+    .logo {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
       text-decoration: none;
-      color: #333;
-      font-weight: 500;
-      font-size: 16px;
-      transition: 0.3s;
+      color: #f9f9f9;
+      white-space: nowrap;
     }
- 
-    .nav-links a:hover { color: #888; }
- 
-    /* ── CONTACTO SECTION ── */
+
+    /* Selector de idioma */
+    .lang-switcher {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 12px;
+      padding: 4px 8px;
+      font-family: inherit;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      color: #fff;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.25s ease;
+    }
+
+    .lang-switcher:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+
+    .lang-opt {
+      opacity: 0.5;
+      transition: opacity 0.2s ease, color 0.2s ease;
+    }
+
+    .lang-opt.active {
+      opacity: 1;
+      color: #ffffff;
+      font-weight: 700;
+    }
+
+    .lang-divider {
+      opacity: 0.4;
+      font-size: 8px;
+    }
+
+    .nav-toggle {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      width: 34px; height: 34px;
+      background: none; border: none;
+      cursor: pointer; padding: 6px; z-index: 2;
+    }
+    .nav-toggle span {
+      display: block; width: 22px; height: 2px;
+      background: #f9f9f9; border-radius: 2px;
+      transition: transform 0.3s ease, opacity 0.2s ease;
+    }
+    .nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-toggle.open span:nth-child(2) { opacity: 0; }
+    .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .nav-links {
+      list-style: none;
+      position: absolute;
+      top: 100%; left: 0; right: 0;
+      display: flex; flex-direction: column;
+      background: #2b2b2b;
+      max-height: 0; overflow: hidden;
+      transition: max-height 0.32s ease;
+    }
+    .nav-links.open {
+      max-height: 320px;
+      border-bottom: 1px solid #444;
+    }
+    .nav-links li { width: 100%; }
+    .nav-links a {
+      display: block;
+      padding: 14px var(--pad);
+      text-decoration: none;
+      color: #f9f9f9;
+      font-weight: 500;
+      font-size: 13px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      transition: color 0.3s;
+    }
+    .nav-links a:hover { color: #9c9c9c; }
+
+    /* ══════════════════════
+       SECCIÓN CONTACTO
+    ══════════════════════ */
     .contacto-section {
       width: 100%;
       min-height: calc(100vh - 65px);
       background: #ffffff;
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1fr;
     }
- 
-    /* LADO IZQUIERDO - info */
+
     .contacto-info {
-      padding: 100px 80px;
+      padding: 60px var(--pad);
       display: flex;
       flex-direction: column;
       justify-content: center;
-      gap: 48px;
-      border-right: 1px solid #eee;
+      gap: 36px;
+      border-bottom: 1px solid #e8e8e8;
     }
- 
+
     .contacto-titulo {
-      font-family: 'Playfair Display', serif;
-      font-size: 64px;
-      font-weight: 700;
-      color: #111;
-      letter-spacing: -1px;
-      line-height: 1;
+      font-size: clamp(38px, 8vw, 68px);
+      font-weight: 400;
+      color: var(--title-color);
+      letter-spacing: -1.5px;
+      line-height: 0.95;
+      text-transform: uppercase;
     }
- 
+
     .contacto-bajada {
-      font-size: 16px;
-      font-weight: 300;
-      color: #666;
+      font-size: 14px;
+      font-weight: 400;
+      color: #555;
       line-height: 1.7;
-      max-width: 340px;
+      max-width: 380px;
     }
- 
+
     .contacto-datos {
       display: flex;
       flex-direction: column;
       gap: 20px;
     }
- 
+
     .dato-item {
       display: flex;
       flex-direction: column;
       gap: 4px;
     }
- 
+
     .dato-label {
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 500;
       letter-spacing: 0.15em;
       text-transform: uppercase;
-      color: #aaa;
+      color: #555;
     }
- 
+
     .dato-valor {
-      font-size: 16px;
-      font-weight: 400;
-      color: #111;
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--text-color);
+      line-height: 1.6;
     }
- 
+
     .dato-valor a {
       text-decoration: none;
-      color: #111;
+      color: var(--text-color);
       transition: color 0.3s;
     }
- 
-    .dato-valor a:hover { color: #888; }
- 
-    /* LADO DERECHO - formulario */
+
+    .dato-valor a:hover { color: var(--accent); }
+
+    /* Lado Derecho - Formulario */
     .contacto-form {
-      padding: 100px 80px;
+      padding: 60px var(--pad);
       display: flex;
       flex-direction: column;
       justify-content: center;
-      gap: 28px;
+      gap: 24px;
+      background: #fafafa;
     }
- 
+
     .form-group {
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 6px;
     }
- 
+
     .form-group label {
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 0.15em;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: #aaa;
+      color: #666;
     }
- 
+
     .form-group input,
     .form-group textarea {
       border: none;
       border-bottom: 1px solid #ddd;
       background: transparent;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 15px;
-      font-weight: 300;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 14px;
+      font-weight: 400;
       color: #111;
       padding: 10px 0;
       outline: none;
-      transition: border-color 0.3s;
+      transition: border-color 0.3s, padding-left 0.3s;
       resize: none;
     }
- 
+
     .form-group input:focus,
     .form-group textarea:focus {
-      border-bottom-color: #111;
+      border-bottom-color: var(--accent);
+      padding-left: 4px;
     }
- 
+
     .form-group textarea {
-      height: 120px;
+      height: 100px;
     }
- 
+
     .form-btn {
-      margin-top: 8px;
+      margin-top: 12px;
       align-self: flex-start;
-      background: #111;
+      background: var(--accent);
       color: #fff;
       border: none;
-      padding: 14px 40px;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 13px;
-      font-weight: 500;
+      padding: 14px 36px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
       letter-spacing: 0.12em;
       text-transform: uppercase;
       cursor: pointer;
       transition: background 0.3s;
     }
- 
-    .form-btn:hover { background: #444; }
- 
-    /* ── FOOTER ── */
+
+    .form-btn:hover { background: #9a4736; }
+
+    /* ══════════════════════
+       FOOTER
+    ══════════════════════ */
     footer {
       width: 100%;
-      background: #111111;
-      padding: 48px 60px;
+      background: #000;
+      padding: 40px var(--pad);
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
-      gap: 40px;
+      gap: 16px 10px;
     }
- 
+
     .footer-titulo {
-      font-size: 13px;
+      font-size: 9px;
       font-weight: 700;
-      color: #ffffff;
-      letter-spacing: 0.15em;
+      color: #f9f9f9;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
-      margin-bottom: 16px;
+      margin-bottom: 12px;
     }
- 
-    .footer-links {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
- 
+
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 8px; }
     .footer-links a {
       text-decoration: none;
-      color: #aaaaaa;
-      font-size: 14px;
-      font-weight: 300;
+      color: #888;
+      font-size: 11px;
+      font-weight: 400;
       transition: color 0.3s;
     }
- 
-    .footer-links a:hover { color: #ffffff; }
- 
-    .footer-contacto {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
- 
+    .footer-links a:hover { color: #f9f9f9; }
+
+    .footer-contacto { display: flex; flex-direction: column; gap: 8px; }
     .footer-contacto p {
-      color: #aaaaaa;
-      font-size: 14px;
-      font-weight: 300;
+      color: #888; font-size: 11px; font-weight: 400;
+      text-decoration: none; word-break: break-word;
     }
- 
-    .footer-redes {
-      display: flex;
-      gap: 12px;
-      margin-top: 4px;
-    }
- 
+
+    .footer-redes { display: flex; gap: 10px; margin-top: 4px; }
     .footer-redes a {
-      width: 34px;
-      height: 34px;
-      border-radius: 50%;
+      width: 28px; height: 28px; border-radius: 50%;
       border: 1px solid #444;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      display: flex; align-items: center; justify-content: center;
       transition: border-color 0.3s;
     }
- 
-    .footer-redes a:hover { border-color: #fff; }
- 
-    .footer-redes svg {
-      width: 16px;
-      height: 16px;
-      fill: #aaaaaa;
-      transition: fill 0.3s;
-    }
- 
-    .footer-redes a:hover svg { fill: #ffffff; }
- 
-    /* Responsive */
-    @media (max-width: 768px) {
-      .navbar { padding: 12px 16px; }
-      .logo { font-size: 13px; letter-spacing: 1px; white-space: nowrap; }
-      .nav-links li { margin-left: 12px; }
-      .nav-links a { font-size: 11px; }
+    .footer-redes a:hover { border-color: #f9f9f9; }
+    .footer-redes svg { width: 14px; height: 14px; fill: #888; transition: fill 0.3s; }
+    .footer-redes a:hover svg { fill: #f9f9f9; }
 
-      footer {
-        padding: 24px 16px;
-        grid-template-columns: 1fr 1fr 1fr;
-        gap: 12px;
+    /* ══════════════════════
+       ANIMACIONES
+    ══════════════════════ */
+    .anim {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .anim.visible { opacity: 1; transform: translateY(0); }
+    .anim-d1 { transition-delay: 0.12s; }
+    .anim-d2 { transition-delay: 0.24s; }
+
+    /* ══════════════════════
+       RESPONSIVE
+    ══════════════════════ */
+    @media (min-width: 640px) {
+      :root { --pad: 40px; }
+
+      .nav-toggle { display: none; }
+      .nav-links {
+        position: static; flex-direction: row; align-items: center;
+        background: none; max-height: none; overflow: visible;
+        border: none;
       }
-      .footer-titulo { font-size: 9px; letter-spacing: 0.08em; margin-bottom: 10px; }
-      .footer-links a { font-size: 10px; }
-      .footer-contacto p { font-size: 9px; }
-      .footer-redes a { width: 26px; height: 26px; }
-      .footer-redes svg { width: 12px; height: 12px; }
-      .footer-redes { gap: 8px; }
-
-     
-      .contacto-section { grid-template-columns: 1fr; }
-      .contacto-info { padding: 60px 30px; border-right: none; border-bottom: 1px solid #eee; }
-      .contacto-form { padding: 60px 30px; }
-      .contacto-titulo { font-size: 48px; }
-      
+      .nav-links li { width: auto; margin-left: 32px; }
+      .nav-links a { padding: 0; font-size: 12px; }
     }
-  
-    /* ── Menú hamburguesa (solo mobile) ── */
-    .nav-toggle { display: none; flex-direction: column; justify-content: center; gap: 5px; width: 34px; height: 34px; background: none; border: none; cursor: pointer; padding: 6px; z-index: 101; }
-    .nav-toggle span { display: block; width: 22px; height: 2px; background: #111; border-radius: 2px; transition: transform .3s ease, opacity .2s ease; }
-    .nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-    .nav-toggle.open span:nth-child(2) { opacity: 0; }
-    .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-    @media (max-width: 768px) {
-      .navbar { position: sticky; top: 0; z-index: 100; }
-      .nav-toggle { display: flex; }
-      .nav-links { position: absolute; top: 100%; left: 0; right: 0; flex-direction: column; align-items: flex-start; background: #eeecec; max-height: 0; overflow: hidden; margin: 0; transition: max-height .32s ease; }
-      .nav-links.open { max-height: 260px; border-bottom: 1px solid #e2e0e0; box-shadow: 0 12px 20px rgba(0,0,0,.06); }
-      .nav-links li { margin: 0 !important; width: 100%; }
-      .nav-links a { display: block; padding: 14px 16px; font-size: 15px !important; }
+
+    @media (min-width: 900px) {
+      :root { --pad: 60px; }
+
+      .nav-links a { font-size: 13px; }
+      .logo { font-size: 13px; }
+
+      .contacto-section {
+        grid-template-columns: 1.1fr 1fr;
+      }
+
+      .contacto-info {
+        padding: 100px 80px;
+        border-right: 1px solid #e8e8e8;
+        border-bottom: none;
+      }
+
+      .contacto-form {
+        padding: 100px 80px;
+      }
+
+      footer { padding: 48px 60px; gap: 28px 40px; }
+      .footer-titulo { font-size: 10px; }
+      .footer-links a { font-size: 12px; }
+      .footer-redes a { width: 32px; height: 32px; }
     }
-    /* ── ANIMACIONES ── */
-.anim {
-  opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
-}
-.anim.visible { opacity: 1; transform: translateY(0); }
-.anim-d1 { transition-delay: 0.12s; }
-.anim-d2 { transition-delay: 0.24s; }
-.anim-d3 { transition-delay: 0.36s; }
-.anim-d4 { transition-delay: 0.48s; }
-
-/* Línea animada bajo los links del nav */
-.nav-links a { position: relative; }
-.nav-links a::after {
-  content: '';
-  position: absolute;
-  bottom: -2px; left: 0;
-  width: 0; height: 1px;
-  background: #111;
-  transition: width 0.3s ease;
-}
-.nav-links a:hover::after { width: 100%; }
-
-/* Hover en inputs: línea que se oscurece suave */
-.form-group input,
-.form-group textarea {
-  transition: border-color 0.3s ease, padding-left 0.3s ease;
-}
-.form-group input:focus,
-.form-group textarea:focus {
-  border-bottom-color: #111;
-  padding-left: 4px;
-}
-
-/* Botón enviar: brillo al hover */
-.form-btn {
-  position: relative;
-  overflow: hidden;
-}
-.form-btn::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: rgba(255,255,255,0.1);
-  transform: translateX(-100%);
-  transition: transform 0.35s ease;
-}
-.form-btn:hover::after { transform: translateX(0); }
-
-/* Datos de contacto: hover suave */
-.dato-valor a { position: relative; }
-.dato-valor a::after {
-  content: '';
-  position: absolute;
-  bottom: -1px; left: 0;
-  width: 0; height: 1px;
-  background: #111;
-  transition: width 0.3s ease;
-}
-.dato-valor a:hover::after { width: 100%; }
-
-@media (prefers-reduced-motion: reduce) {
-  .anim, .form-btn::after, .nav-links a::after, .dato-valor a::after { transition: none !important; animation: none !important; }
-}
-
-
-
   </style>
 </head>
 <body>
- 
+
   <!-- NAVBAR -->
   <header>
     <nav class="navbar">
-      <a class="logo" href="../index.html">MARTINA CANDIDO</a>
-      <button class="nav-toggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="navLinks"><span></span><span></span><span></span></button>
+      <div class="nav-left">
+        <a class="logo" href="../index.html">Martina Candido</a>
+        <!-- Selector de idioma -->
+        <button class="lang-switcher" id="langBtn" aria-label="Cambiar idioma">
+          <span class="lang-opt active" id="optEs">ES</span>
+          <span class="lang-divider">|</span>
+          <span class="lang-opt" id="optEn">EN</span>
+        </button>
+      </div>
+
+      <button class="nav-toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+
       <ul class="nav-links" id="navLinks">
-        <li><a href="../index.html">Inicio</a></li>
-        <li><a href="proyectos.html">Proyectos</a></li>
-        <li><a href="contacto.html">Contacto</a></li>
+        <li><a href="../index.html" id="linkInicio">Inicio</a></li>
+        <li><a href="photo-film.html" id="linkPhoto">Photo & Film</a></li>
+        <li><a href="marcas.html" id="linkMarcas">Marcas & Empresas</a></li>
+        <li><a href="contacto.html" id="linkContacto">Contacto</a></li>
       </ul>
     </nav>
   </header>
- 
-  <!-- CONTACTO -->
+
+  <!-- CONTACTO SECTION -->
   <section class="contacto-section">
- 
-    <!-- INFO -->
-    <div class="contacto-info">
-      <h1 class="contacto-titulo">CONTACTO</h1>
-      <p class="contacto-bajada">
+
+    <!-- LADO IZQUIERDO: INFO -->
+    <div class="contacto-info anim">
+      <h1 class="contacto-titulo" id="txtTitulo">CONTACTO</h1>
+      <p class="contacto-bajada" id="txtBajada">
         ¿Tenés un evento o proyecto en mente?<br/>
-        Escribime y lo hablamos.
+        Escribime y lo planificamos juntos.
       </p>
+
       <div class="contacto-datos">
         <div class="dato-item">
-          <span class="dato-label">Teléfono</span>
+          <span class="dato-label" id="lblPhone">Teléfono / WhatsApp</span>
           <span class="dato-valor">
-            <a href="tel:+5491157053196">+54 9 11 5705-3196</a>
+            <a href="https://wa.me/5491157053196" target="_blank" rel="noopener">+54 9 11 5705-3196</a>
           </span>
         </div>
+
         <div class="dato-item">
-          <span class="dato-label">Email</span>
+          <span class="dato-label" id="lblEmail">Email</span>
           <span class="dato-valor">
             <a href="mailto:martinacandido.ph@gmail.com">martinacandido.ph@gmail.com</a>
           </span>
         </div>
+
         <div class="dato-item">
-          <span class="dato-label">Redes</span>
+          <span class="dato-label" id="lblSocial">Redes</span>
           <span class="dato-valor">
-            <a href="https://www.instagram.com/martinacandido.ph/" target="_blank">Instagram</a> <br>
-            <a href="https://www.tiktok.com/@martinacandido.ph" target="_blank">TikTok</a>
+            <a href="https://www.instagram.com/martinacandido.ph/" target="_blank" rel="noopener">Instagram</a> · 
+            <a href="https://www.tiktok.com/@martinacandido.ph" target="_blank" rel="noopener">TikTok</a>
           </span>
+        </div>
+
+        <div class="dato-item">
+          <span class="dato-label" id="lblLocation">Ubicación</span>
+          <span class="dato-valor" id="valLocation">Buenos Aires, Argentina</span>
         </div>
       </div>
     </div>
- 
-    <!-- FORMULARIO -->
-<div class="contacto-form">
-  <div id="form-exito" style="display:none; padding: 20px 0; font-size:15px; color:#111; font-weight:300; border-bottom: 1px solid #ddd;">
-    ✓ &nbsp;¡Mensaje enviado! Me voy a comunicar con vos pronto.
-  </div>
 
-  <div id="form-campos">
-    <div class="form-group">
-      <label for="nombre">Nombre</label>
-      <input type="text" id="nombre" placeholder="Tu nombre completo" />
+    <!-- LADO DERECHO: FORMULARIO -->
+    <div class="contacto-form anim anim-d1">
+      <div id="form-exito" style="display:none; padding: 16px 0; font-size:14px; color: var(--accent); font-weight:600; border-bottom: 1px solid #ddd;">
+        ✓ &nbsp;<span id="txtExito">¡Mensaje enviado con éxito! Me comunicaré con vos a la brevedad.</span>
+      </div>
+
+      <div id="form-campos">
+        <div class="form-group">
+          <label for="nombre" id="lblFormNombre">Nombre</label>
+          <input type="text" id="nombre" placeholder="Tu nombre completo" />
+        </div>
+
+        <div class="form-group">
+          <label for="email" id="lblFormEmail">Email</label>
+          <input type="email" id="email" placeholder="tu@email.com" />
+        </div>
+
+        <div class="form-group">
+          <label for="telefono" id="lblFormTel">Teléfono</label>
+          <input type="tel" id="telefono" placeholder="+54 9 11 0000-0000" />
+        </div>
+
+        <div class="form-group">
+          <label for="evento" id="lblFormEvento">Tipo de servicio o evento</label>
+          <input type="text" id="evento" placeholder="Boda, XV, marca, desarrollo web, etc." />
+        </div>
+
+        <div class="form-group">
+          <label for="mensaje" id="lblFormMensaje">Mensaje</label>
+          <textarea id="mensaje" placeholder="Contame sobre tu idea o proyecto..."></textarea>
+        </div>
+
+        <button class="form-btn" id="btnEnviar">Enviar mensaje</button>
+      </div>
     </div>
-    <div class="form-group">
-      <label for="email">Email</label>
-      <input type="email" id="email" placeholder="tu@email.com" />
-    </div>
-    <div class="form-group">
-      <label for="telefono">Teléfono</label>
-      <input type="tel" id="telefono" placeholder="+54 9 11 0000-0000" />
-    </div>
-    <div class="form-group">
-      <label for="evento">Tipo de evento</label>
-      <input type="text" id="evento" placeholder="Boda, XV, show, etc." />
-    </div>
-    <div class="form-group">
-      <label for="mensaje">Mensaje</label>
-      <textarea id="mensaje" placeholder="Contame sobre tu proyecto..."></textarea>
-    </div>
-    <button class="form-btn" id="btnEnviar">Enviar mensaje</button>
-  </div>
-</div>
- 
+
   </section>
- 
-   <footer>
-  <!-- NAVEGACIÓN -->
-  <div>
-    <p class="footer-titulo">Navegación</p>
-    <ul class="footer-links">
-      <li><a href="../index.html">Inicio</a></li>
-      <li><a href="proyectos.html">Proyectos</a></li>
-      <li><a href="contacto.html">Contacto</a></li>
-    </ul>
-  </div>
 
-  <!-- CONTACTO -->
-  <div>
-    <p class="footer-titulo">Contactame</p>
-    <div class="footer-contacto">
-      <p>☏ +54 9 11 5705-3196</p>
-      <p>@ martinacandido.ph@gmail.com</p>
+  <!-- FOOTER -->
+  <footer>
+    <div>
+      <p class="footer-titulo" id="footNavTitle">Navegación</p>
+      <ul class="footer-links">
+        <li><a href="../index.html" id="footLinkInicio">Inicio</a></li>
+        <li><a href="photo-film.html" id="footLinkPhoto">Photo & Film</a></li>
+        <li><a href="marcas.html" id="footLinkMarcas">Marcas & Empresas</a></li>
+        <li><a href="contacto.html" id="footLinkContacto">Contacto</a></li>
+      </ul>
     </div>
-  </div>
-
-  <!-- REDES -->
-  <div>
-    <p class="footer-titulo">Redes Sociales</p>
-    <div class="footer-redes">
-      <!-- Instagram -->
-      <a href="https://www.instagram.com/martinacandido.ph/" aria-label="Instagram" target="_blank">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.366.062 2.633.334 3.608 1.308.975.975 1.246 2.242 1.308 3.608.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.062 1.366-.334 2.633-1.308 3.608-.975.975-2.242 1.246-3.608 1.308-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.366-.062-2.633-.334-3.608-1.308-.975-.975-1.246-2.242-1.308-3.608C2.175 15.584 2.163 15.204 2.163 12s.012-3.584.07-4.85c.062-1.366.334-2.633 1.308-3.608.975-.975 2.242-1.246 3.608-1.308C8.416 2.175 8.796 2.163 12 2.163zm0-2.163C8.741 0 8.332.014 7.052.072 5.197.157 3.355.673 2.014 2.014.673 3.355.157 5.197.072 7.052.014 8.332 0 8.741 0 12c0 3.259.014 3.668.072 4.948.085 1.855.601 3.697 1.942 5.038 1.341 1.341 3.183 1.857 5.038 1.942C8.332 23.986 8.741 24 12 24s3.668-.014 4.948-.072c1.855-.085 3.697-.601 5.038-1.942 1.341-1.341 1.857-3.183 1.942-5.038.058-1.28.072-1.689.072-4.948s-.014-3.668-.072-4.948c-.085-1.855-.601-3.697-1.942-5.038C20.645.673 18.803.157 16.948.072 15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zm0 10.162a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/>
-        </svg>
-      </a>
-      
-      <!-- TikTok -->
-      <a href="https://www.tiktok.com/@martinacandido.ph" aria-label="TikTok" target="_blank">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/>
-        </svg>
-      </a>
+    <div>
+      <p class="footer-titulo" id="footContactTitle">Contactame</p>
+      <div class="footer-contacto">
+        <p>+54 9 11 5705-3196</p>
+        <p>martinacandido.ph@gmail.com</p>
+      </div>
     </div>
-  </div>
-</footer>
- 
-<script>
-  document.getElementById('btnEnviar').addEventListener('click', async () => {
-    const nombre   = document.getElementById('nombre').value.trim();
-    const email    = document.getElementById('email').value.trim();
-    const telefono = document.getElementById('telefono').value.trim();
-    const evento   = document.getElementById('evento').value.trim();
-    const mensaje  = document.getElementById('mensaje').value.trim();
+    <div>
+      <p class="footer-titulo" id="footSocialTitle">Redes</p>
+      <div class="footer-redes">
+        <a href="https://www.instagram.com/martinacandido.ph/" aria-label="Instagram" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.366.062 2.633.334 3.608 1.308.975.975 1.246 2.242 1.308 3.608.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.062 1.366-.334 2.633-1.308 3.608-.975.975-2.242 1.246-3.608 1.308-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.366-.062-2.633-.334-3.608-1.308-.975-.975-1.246-2.242-1.308-3.608C2.175 15.584 2.163 15.204 2.163 12s.012-3.584.07-4.85c.062-1.366.334-2.633 1.308-3.608.975-.975 2.242-1.246 3.608-1.308C8.416 2.175 8.796 2.163 12 2.163zm0-2.163C8.741 0 8.332.014 7.052.072 5.197.157 3.355.673 2.014 2.014.673 3.355.157 5.197.072 7.052.014 8.332 0 8.741 0 12c0 3.259.014 3.668.072 4.948.085 1.855.601 3.697 1.942 5.038 1.341 1.341 3.183 1.857 5.038 1.942C8.332 23.986 8.741 24 12 24s3.668-.014 4.948-.072c1.855-.085 3.697-.601 5.038-1.942 1.341-1.341 1.857-3.183 1.942-5.038.058-1.28.072-1.689.072-4.948s-.014-3.668-.072-4.948c-.085-1.855-.601-3.697-1.942-5.038C20.645.673 18.803.157 16.948.072 15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zm0 10.162a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+        </a>
+        <a href="https://www.tiktok.com/@martinacandido.ph" aria-label="TikTok" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+        </a>
+      </div>
+    </div>
+  </footer>
 
-    if (!nombre || !email || !mensaje || ! telefono) {
-      alert('Por favor completá al menos nombre, email, teléfono y mensaje.');
-      return;
-    }
-
-    const btn = document.getElementById('btnEnviar');
-    btn.textContent = 'Enviando...';
-    btn.disabled = true;
-
-    const res = await fetch('https://formspree.io/f/xaqvnopa', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify({ nombre, email, telefono, evento, mensaje })
-    });
-
-    if (res.ok) {
-      // Mostrar cartel de éxito y vaciar campos
-      document.getElementById('form-exito').style.display = 'block';
-      document.getElementById('nombre').value   = '';
-      document.getElementById('email').value    = '';
-      document.getElementById('telefono').value = '';
-      document.getElementById('evento').value   = '';
-      document.getElementById('mensaje').value  = '';
-      btn.textContent = 'Enviar mensaje';
-      btn.disabled = false;
-
-      // Ocultar el cartel después de 5 segundos
-      setTimeout(() => {
-        document.getElementById('form-exito').style.display = 'none';
-      }, 5000);
-    } else {
-      alert('Hubo un error al enviar. Intentá de nuevo.');
-      btn.textContent = 'Enviar mensaje';
-      btn.disabled = false;
-    }
-  });
-</script>
-
-
-
+  <!-- JAVASCRIPT: Formspree, Menu Mobile, Scroll Fade In y Traducción -->
   <script>
-    (function () {
-      var t = document.querySelector('.nav-toggle'), l = document.getElementById('navLinks');
-      if (!t || !l) return;
-      t.addEventListener('click', function () {
-        var o = l.classList.toggle('open');
-        t.classList.toggle('open', o);
-        t.setAttribute('aria-expanded', o ? 'true' : 'false');
-      });
-      l.querySelectorAll('a').forEach(function (a) {
-        a.addEventListener('click', function () { l.classList.remove('open'); t.classList.remove('open'); });
-      });
-    
-  // Animaciones al hacer scroll
-  (function () {
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (!e.isIntersecting) return;
-        e.target.classList.add('visible');
-        io.unobserve(e.target);
-      });
-    }, { threshold: 0.1 });
+    // Diccionario de Traducciones
+    const translations = {
+      es: {
+        nav: { inicio: "Inicio", photo: "Photo & Film", marcas: "Marcas & Empresas", contacto: "Contacto" },
+        titulo: "CONTACTO",
+        bajada: "¿Tenés un evento o proyecto en mente?<br/>Escribime y lo planificamos juntos.",
+        info: {
+          phone: "Teléfono / WhatsApp",
+          email: "Email",
+          social: "Redes",
+          location: "Ubicación",
+          locationVal: "Buenos Aires, Argentina"
+        },
+        form: {
+          exito: "¡Mensaje enviado con éxito! Me comunicaré con vos a la brevedad.",
+          lblNombre: "Nombre",
+          phNombre: "Tu nombre completo",
+          lblEmail: "Email",
+          phEmail: "tu@email.com",
+          lblTel: "Teléfono",
+          phTel: "+54 9 11 0000-0000",
+          lblEvento: "Tipo de servicio o evento",
+          phEvento: "Boda, XV, marca, desarrollo web, etc.",
+          lblMensaje: "Mensaje",
+          phMensaje: "Contame sobre tu idea o proyecto...",
+          btnEnviar: "Enviar mensaje",
+          btnEnviando: "Enviando...",
+          alertIncompleto: "Por favor completá al menos nombre, email, teléfono y mensaje.",
+          alertError: "Hubo un error al enviar. Intentá de nuevo.",
+          alertConexion: "Error de conexión. Verificá tu red e intentá nuevamente."
+        },
+        footer: { nav: "Navegación", contact: "Contactame", social: "Redes" }
+      },
+      en: {
+        nav: { inicio: "Home", photo: "Photo & Film", marcas: "Brands & Business", contacto: "Contact" },
+        titulo: "CONTACT",
+        bajada: "Have an event or project in mind?<br/>Write to me and let's plan it together.",
+        info: {
+          phone: "Phone / WhatsApp",
+          email: "Email",
+          social: "Social Media",
+          location: "Location",
+          locationVal: "Buenos Aires, Argentina"
+        },
+        form: {
+          exito: "Message sent successfully! I'll get back to you shortly.",
+          lblNombre: "Name",
+          phNombre: "Your full name",
+          lblEmail: "Email",
+          phEmail: "your@email.com",
+          lblTel: "Phone",
+          phTel: "+54 9 11 0000-0000",
+          lblEvento: "Type of service or event",
+          phEvento: "Wedding, XV, brand, web development, etc.",
+          lblMensaje: "Message",
+          phMensaje: "Tell me about your idea or project...",
+          btnEnviar: "Send message",
+          btnEnviando: "Sending...",
+          alertIncompleto: "Please complete at least name, email, phone, and message.",
+          alertError: "There was an error sending. Please try again.",
+          alertConexion: "Connection error. Please check your network and try again."
+        },
+        footer: { nav: "Navigation", contact: "Contact", social: "Social Media" }
+      }
+    };
 
-    // Título e info
-    const elems = [
-      '.contacto-titulo',
-      '.contacto-bajada',
-      '.dato-item',
-      '.contacto-form .form-group',
-      '.form-btn',
-      'footer > div'
-    ];
+    let currentLang = 'es';
+    const langBtn = document.getElementById('langBtn');
+    const optEs = document.getElementById('optEs');
+    const optEn = document.getElementById('optEn');
 
-    elems.forEach(sel => {
-      document.querySelectorAll(sel).forEach((el, i) => {
-        el.classList.add('anim');
-        if (i === 1) el.classList.add('anim-d1');
-        if (i === 2) el.classList.add('anim-d2');
-        if (i === 3) el.classList.add('anim-d3');
-        if (i === 4) el.classList.add('anim-d4');
-        io.observe(el);
-      });
+    langBtn.addEventListener('click', () => {
+      currentLang = currentLang === 'es' ? 'en' : 'es';
+      const t = translations[currentLang];
+
+      optEs.classList.toggle('active', currentLang === 'es');
+      optEn.classList.toggle('active', currentLang === 'en');
+      document.documentElement.lang = currentLang;
+
+      // Navbar
+      document.getElementById('linkInicio').textContent = t.nav.inicio;
+      document.getElementById('linkPhoto').textContent = t.nav.photo;
+      document.getElementById('linkMarcas').textContent = t.nav.marcas;
+      document.getElementById('linkContacto').textContent = t.nav.contacto;
+
+      // Textos Info
+      document.getElementById('txtTitulo').textContent = t.titulo;
+      document.getElementById('txtBajada').innerHTML = t.bajada;
+      document.getElementById('lblPhone').textContent = t.info.phone;
+      document.getElementById('lblEmail').textContent = t.info.email;
+      document.getElementById('lblSocial').textContent = t.info.social;
+      document.getElementById('lblLocation').textContent = t.info.location;
+      document.getElementById('valLocation').textContent = t.info.locationVal;
+
+      // Formulario
+      document.getElementById('txtExito').textContent = t.form.exito;
+      document.getElementById('lblFormNombre').textContent = t.form.lblNombre;
+      document.getElementById('nombre').placeholder = t.form.phNombre;
+      document.getElementById('lblFormEmail').textContent = t.form.lblEmail;
+      document.getElementById('email').placeholder = t.form.phEmail;
+      document.getElementById('lblFormTel').textContent = t.form.lblTel;
+      document.getElementById('telefono').placeholder = t.form.phTel;
+      document.getElementById('lblFormEvento').textContent = t.form.lblEvento;
+      document.getElementById('evento').placeholder = t.form.phEvento;
+      document.getElementById('lblFormMensaje').textContent = t.form.lblMensaje;
+      document.getElementById('mensaje').placeholder = t.form.phMensaje;
+      document.getElementById('btnEnviar').textContent = t.form.btnEnviar;
+
+      // Footer
+      document.getElementById('footNavTitle').textContent = t.footer.nav;
+      document.getElementById('footContactTitle').textContent = t.footer.contact;
+      document.getElementById('footSocialTitle').textContent = t.footer.social;
+      document.getElementById('footLinkInicio').textContent = t.nav.inicio;
+      document.getElementById('footLinkPhoto').textContent = t.nav.photo;
+      document.getElementById('footLinkMarcas').textContent = t.nav.marcas;
+      document.getElementById('footLinkContacto').textContent = t.nav.contacto;
     });
-  })();
 
+    // Enviar formulario con Formspree
+    document.getElementById('btnEnviar').addEventListener('click', async () => {
+      const t = translations[currentLang].form;
+      const nombre   = document.getElementById('nombre').value.trim();
+      const email    = document.getElementById('email').value.trim();
+      const telefono = document.getElementById('telefono').value.trim();
+      const evento   = document.getElementById('evento').value.trim();
+      const mensaje  = document.getElementById('mensaje').value.trim();
+
+      if (!nombre || !email || !mensaje || !telefono) {
+        alert(t.alertIncompleto);
+        return;
+      }
+
+      const btn = document.getElementById('btnEnviar');
+      btn.textContent = t.btnEnviando;
+      btn.disabled = true;
+
+      try {
+        const res = await fetch('https://formspree.io/f/xaqvnopa', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify({ nombre, email, telefono, evento, mensaje })
+        });
+
+        if (res.ok) {
+          document.getElementById('form-exito').style.display = 'block';
+          document.getElementById('nombre').value   = '';
+          document.getElementById('email').value    = '';
+          document.getElementById('telefono').value = '';
+          document.getElementById('evento').value   = '';
+          document.getElementById('mensaje').value  = '';
+          btn.textContent = t.btnEnviar;
+          btn.disabled = false;
+
+          setTimeout(() => {
+            document.getElementById('form-exito').style.display = 'none';
+          }, 5000);
+        } else {
+          alert(t.alertError);
+          btn.textContent = t.btnEnviar;
+          btn.disabled = false;
+        }
+      } catch (err) {
+        alert(t.alertConexion);
+        btn.textContent = t.btnEnviar;
+        btn.disabled = false;
+      }
+    });
+
+    // Menú hamburguesa (Mobile)
+    (function () {
+      const toggle = document.getElementById('navToggle');
+      const links = document.getElementById('navLinks');
+      if (!toggle || !links) return;
+      toggle.addEventListener('click', () => {
+        const open = links.classList.toggle('open');
+        toggle.classList.toggle('open', open);
+        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+      links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+        links.classList.remove('open');
+        toggle.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+      }));
+    })();
+
+    // Animación Fade In al hacer scroll
+    (function () {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (!e.isIntersecting) return;
+          e.target.classList.add('visible');
+          io.unobserve(e.target);
+        });
+      }, { threshold: 0.1 });
+      document.querySelectorAll('.anim').forEach(el => io.observe(el));
     })();
   </script>
 
